@@ -132,13 +132,15 @@ for i in np.arange(len(R_disk)-1):
     file.write(f'\n{R_outer/R_G},{R_inner/R_G},{total_flux[-1]}')
 
 
-
+"""
+I recommend plotting this when running the code to check everything looks right with the energy/radii steps you have chosen
 plt.figure()
 plt.plot(R_disk[0:n_step-1]/R_G, total_flux,ls='None',marker='o',markersize=2) #for 100 R values there is 99 flux values
 plt.xlabel('r')
 plt.ylabel('Flux')
 #plt.yscale('log')
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/flux_vs_r.png',dpi=300, bbox_inches="tight")   
+plt.savefig('./plots/accretion_disk/flux_vs_r.png',dpi=300, bbox_inches="tight")   
+"""
 
 
 
@@ -204,6 +206,6 @@ plt.plot(azm, r, color='k', ls='none')
 plt.suptitle(f'XMM')
 
 
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/xmm_6rg.png',dpi=300,bbox_inches='tight')
+plt.savefig('./plots/accretion_disk/xmm_6rg.png',dpi=300,bbox_inches='tight')
 
 print('max flux:',interpolated_flux[index_max])
