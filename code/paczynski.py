@@ -17,13 +17,11 @@ def min_flux(exp_time):
     return( (10**4)*2*(10**(-14)) / exp_time )
 
 #average swift exposure time 
-xamin = pandas.read_csv('/home/sophienewman/microlensing/my_paper/data/xamin.csv',usecols=["xrt_exposure","start_time"])
+xamin = pandas.read_csv('./data/xamin.csv',usecols=["xrt_exposure","start_time"])
 
 swift_exp = xamin["xrt_exposure"].tolist()
 swift_exp_av = 2270
 swift_times = xamin["start_time"] #in UTC format
-
-#flux_errors = pandas.read_csv('/home/sophienewman/microlensing/my_paper/data/flux_errors.csv',usecols=["Error on luminosity"])
 swift_exp = xamin["xrt_exposure"].tolist()
 
 sw_flux_min = min_flux(swift_exp_av) 
@@ -66,16 +64,7 @@ def paczynski_curve(t, u0, t_cross):
 
 
 
-### SRC LUMINOSITIES 
-""" ###this uses the 164 flux values I got from my merged image
-chandra_data = pandas.read_csv('/home/sln/mphys_lensing/filtered.csv',usecols=["RA","DEC","COUNTS ","COUNT RATE","FLUX (ERG/CM/CM/S)"])
-ch_flux = chandra_data["FLUX (ERG/CM/CM/S)"].tolist()
-ch_rate = chandra_data["COUNT RATE"]
-ch_counts = chandra_data["COUNTS "]
-ch_lum = []
-for f in ch_flux:   
-    ch_lum.append( 4*np.pi*d_m31_cm*d_m31_cm*f ) #erg/s
-"""  
+### SRC FLUXES
 
 chandra_data = pandas.read_csv('/home/sophienewman/microlensing/my_paper/data/m31_catalogue_within_fov.txt',usecols=["Summed flux (0.5-8.0 keV)","net cts","Tot Exp (ks)"])
 ch_flux = chandra_data["Summed flux (0.5-8.0 keV)"].tolist()
@@ -108,7 +97,7 @@ for f in ch_flux:
     
     
 
-n_sims = 94
+n_sims = 100
 outputlist = np.arange(1,n_sims-1)
 outputlist = outputlist.tolist()
 
@@ -187,49 +176,15 @@ for output_file_number in outputlist :
                 for n in np.arange(num_swift_line):
                     swift_line_y.append( sw_flux_min ) #plotting Swift's sensitivity
                 
-                
-                #FINDING CROSSING TIMES 
-                
-                idx1 = 0
-                idx2 = len(flux) - 1
-                
-                # Find the first index above sw_flux_min and last index before it falls below
-                for i in range(len(flux)):
-                    if flux[i] > sw_flux_min:
-                        if idx1 == 0:
-                            idx1 = i
-                            idx2 = len(flux) - idx1 - 1 #because the Paczynski curve is symmetric:
-                            break  # Exit the loop once idx1 and idx2 are found
-                           
-              
                 plt.figure()
-                
-                
-                #if max(flux) > sw_flux_min:
-                
-                #sw_cross = abs(t_fit[idx2] - t_fit[idx1])
-                
-                #print('sw_cross:',sw_cross,'swift sep:',obs_seps_mean)
-                #num_sampled = int(sw_cross/obs_seps_mean)
-                #print('num_sampled:',num_sampled)
-                
-                # Calculate the sampling rate if num_sampled is non-zero
-                #indices = np.linspace(idx1, idx2, num_sampled, dtype=int)
             
                 errors = []
                 for sample in np.arange(len(flux)) :
                     errors.append( flux[sample] * counts[sample]**(-1/2)  ) #/ (swift_exp_av)
-                
-        
-                
+                    
                 plt.scatter(t_fit,flux,s=5,zorder=4,alpha=0.6) 
                 plt.errorbar(t_fit,flux,yerr=errors,ls='None',zorder=2,alpha=0.3)
-                    
-                #plt.plot(t_fit,flux,ls='--',zorder=3) #Paczynski curve, color='dodgerblue'
-            
                 plt.plot(swift_line_x,swift_line_y,ls='--',zorder=1, color='black') 
-                
-                
                 plt.xlabel('t (years)')
                 plt.ylabel(f'Flux (erg/s/cm$^2$)')
                 
@@ -240,7 +195,4 @@ for output_file_number in outputlist :
                 plt.ylim(bottom= min(flux) - 0.5*half_range, top= max(flux) + 0.5*half_range)
 
                 plt.suptitle(f'A = {round(max(A),2)}, $u_0$ = {round(u0,2)}, $t_E$ = {t_cross_rounded} yrs', y=0.95)
-                plt.savefig(f'/home/sophienewman/microlensing/my_paper/sim_analysis/Swift/mags{output_file_number}_{event+1}.png',dpi=300,bbox_inches='tight')
-
-                if max(flux) < swift_line_y[0]:
-                    print(output_file_number,event+1)
+                plt.savefig(f'./paczynski_curves/mags{output_file_number}_{event+1}.png',dpi=300,bbox_inches='tight')
