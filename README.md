@@ -14,8 +14,8 @@ Data:
 - xamin.csv contains information on the Swift observation towards M31 between September 2006 to March 2023
 - m31_catalogue_within_fov.txt contains the positions, summed fluxes, net counts and total exposure times for the Vulic et al. (2016) Chandra observations towards M31 in the mean Swift FOV
 
+Plots:
+- Where plots created using the scripts in ./code are saved
+
 Sim results:
 - All of the results of sim_wd.py are recorded here
-
-Plots:
-- Where plots created using the scripts in ./code are saved 
