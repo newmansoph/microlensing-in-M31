@@ -195,4 +195,4 @@ for output_file_number in outputlist :
                 plt.ylim(bottom= min(flux) - 0.5*half_range, top= max(flux) + 0.5*half_range)
 
                 plt.suptitle(f'A = {round(max(A),2)}, $u_0$ = {round(u0,2)}, $t_E$ = {t_cross_rounded} yrs', y=0.95)
-                plt.savefig(f'./paczynski_curves/mags{output_file_number}_{event+1}.png',dpi=300,bbox_inches='tight')
+                plt.savefig(f'./plots/paczynski_curves/mags{output_file_number}_{event+1}.png',dpi=300,bbox_inches='tight')
