@@ -3,9 +3,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 import pandas as pd
 
-import style
-plt.style.use(style.custom_style)
-
 ###setting up the x-ray binary disc:
 theta_E = 1.28*(10**(-5)) #arcsec. for a 0.6 solar mass WD 
 d_s = 780 #kpc
@@ -95,7 +92,7 @@ y0 = 0
 r_end = 1.24
 
 ###JWST
-df1 = pd.read_csv('/home/sophienewman/microlensing/my_paper/code/jwst.txt',delimiter=",",usecols=["Total_flux","R_outer"])
+df1 = pd.read_csv('./data/accretion_outputs/jwst.txt',delimiter=",",usecols=["Total_flux","R_outer"])
 flux_left = df1["Total_flux"].tolist() #unmagnified fluxes, one half only
 flux_jwst = [value for value in flux_left if value != 0]
 del flux_jwst[-1] #removes last value
@@ -118,7 +115,7 @@ t_jwst = np.linspace(-x0/v,x0/v,len(jwst_after))
   
     
 ##SWIFT-UVOT
-df2 = pd.read_csv('/home/sophienewman/microlensing/my_paper/code/uvot.txt',delimiter=",",usecols=["Total_flux","R_outer"])
+df2 = pd.read_csv('./data/accretion_outputs/uvot.txt',delimiter=",",usecols=["Total_flux","R_outer"])
 flux_left = df2["Total_flux"].tolist() #unmagnified fluxes, one half only
 flux_uvot = flux_left.copy()  # Copy the original list
 del flux_uvot[-1] #removes last value
@@ -141,7 +138,7 @@ t_uvot = np.linspace(-x0/v,x0/v,n)
 
     
 ##ztf g-FILTER
-df3 = pd.read_csv('/home/sophienewman/microlensing/my_paper/code/ztf_g.txt',delimiter=",",usecols=["Total_flux","R_outer"])
+df3 = pd.read_csv('./data/accretion_outputs/ztf_g.txt',delimiter=",",usecols=["Total_flux","R_outer"])
 flux_left = df3["Total_flux"].tolist() #unmagnified fluxes, one half only
 flux_ztf_g = flux_left.copy()  # Copy the original list
 del flux_ztf_g[-1] #removes last value
@@ -163,7 +160,7 @@ t_ztf_g = np.linspace(-x0/v,x0/v,n)
     
 
 ##ztf r-FILTER
-df4 = pd.read_csv('/home/sophienewman/microlensing/my_paper/code/ztf_r.txt',delimiter=",",usecols=["Total_flux","R_outer"])
+df4 = pd.read_csv('./data/accretion_outputs/ztf_r.txt',delimiter=",",usecols=["Total_flux","R_outer"])
 flux_left = df4["Total_flux"].tolist() #unmagnified fluxes, one half only
 flux_ztf_r = flux_left.copy()  # Copy the original list
 del flux_ztf_r[-1] #removes last value
@@ -185,7 +182,7 @@ t_ztf_r = np.linspace(-x0/v,x0/v,n)
 
 
 ##ztf i-FILTER
-df5 = pd.read_csv('/home/sophienewman/microlensing/my_paper/code/ztf_i.txt',delimiter=",",usecols=["Total_flux","R_outer"])
+df5 = pd.read_csv('./data/accretion_outputs/ztf_i.txt',delimiter=",",usecols=["Total_flux","R_outer"])
 flux_left = df5["Total_flux"].tolist() #unmagnified fluxes, one half only
 flux_ztf_i = flux_left.copy()  # Copy the original list
 del flux_ztf_i[-1] #removes last value
@@ -207,7 +204,7 @@ t_ztf_i = np.linspace(-x0/v,x0/v,n)
 
 
 ###XMM 
-df6 = pd.read_csv('/home/sophienewman/microlensing/my_paper/code/xmm.txt',delimiter=",",usecols=["Total_flux","R_outer"])
+df6 = pd.read_csv('./data/accretion_outputs/xmm.txt',delimiter=",",usecols=["Total_flux","R_outer"])
 
 R_outer = df6["R_outer"].tolist()
 flux_left = df6["Total_flux"].tolist()
@@ -236,7 +233,7 @@ t_xmm = np.linspace(-x0*526000/v,x0*526000/v,len(xmm_after))
 
 
 ###XMM for 6Rg
-df7 = pd.read_csv('/home/sophienewman/microlensing/my_paper/code/xmm_for_6Rg.txt',delimiter=",",usecols=["Total_flux","R_outer"])
+df7 = pd.read_csv('./data/accretion_outputs/xmm_for_6Rg.txt',delimiter=",",usecols=["Total_flux","R_outer"])
 
 R_outer_6Rg = df7["R_outer"].tolist()
 flux_left_6Rg = df7["Total_flux"].tolist()
@@ -274,14 +271,15 @@ for i in np.arange(len(ztf_r_after)):
 
 ###PLOTS 
 
+"""
 plt.figure()
 plt.plot(t_jwst,ratio,label='ZTF-r/JWST',marker='o')
 plt.xlabel('t (years)')
 plt.ylabel('Magnified flux')
 #plt.yscale('log')
 plt.legend()
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/ratio.png',dpi=300,bbox_inches='tight')
-
+plt.savefig('./plots/ratio.png',dpi=300,bbox_inches='tight')
+"""
     
 plt.figure()
 plt.plot(t_jwst,jwst_after,label='JWST',marker='o')
@@ -291,7 +289,7 @@ plt.xlabel('t (years)')
 plt.ylabel('Magnified flux')
 plt.yscale('log')
 plt.legend()
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/magnified_fluxes.png',dpi=300,bbox_inches='tight')
+plt.savefig('./plots/magnified_fluxes.png',dpi=300,bbox_inches='tight')
 
 
 
@@ -304,7 +302,7 @@ plt.xlabel('t (years)')
 plt.ylabel('Magnified flux')
 plt.yscale('log')
 plt.legend()
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/ztf_filters.png',dpi=300,bbox_inches='tight')
+plt.savefig('./plots/ztf_filters.png',dpi=300,bbox_inches='tight')
 
 
 
@@ -316,12 +314,13 @@ plt.xlabel('t (minutes)')
 plt.ylabel('Magnified flux')
 plt.yscale('log')
 plt.legend()
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/xmm_peak.png',dpi=300,bbox_inches='tight')
+plt.savefig('./plots/xmm_peak.png',dpi=300,bbox_inches='tight')
 
 
 
 
 ###MAGNIFICATIONS
+"""
 plt.figure()   
 #plt.plot(t_uvot,mags_uvot,label='Swift UVOT',marker='x')
 #plt.plot(t_jwst,mags_jwst,label='JWST',marker='x')
@@ -331,7 +330,7 @@ plt.xlabel('t (minutes)')
 plt.ylabel(r'$\mu$',rotation=0,labelpad=10)
 plt.yscale('log')
 plt.legend()
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/xmm_mags.png',dpi=300,bbox_inches='tight')
+plt.savefig('./plots/xmm_mags.png',dpi=300,bbox_inches='tight')
 
 plt.figure()   
 plt.plot(t_uvot,mags_uvot,label='Swift UVOT',marker='x')
@@ -340,8 +339,8 @@ plt.xlabel('t (years)')
 plt.ylabel(r'$\mu$',rotation=0,labelpad=10)
 plt.yscale('log')
 plt.legend()
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/witt_mao_mags.png',dpi=300,bbox_inches='tight')
-
+plt.savefig('./plots/witt_mao_mags.png',dpi=300,bbox_inches='tight')
+"""
 
 
 
@@ -354,4 +353,4 @@ plt.plot(R_outer_6Rg,flux_left_6Rg,label=r'$6R_g$',marker='o')
 plt.legend()
 plt.xlabel('Radius')
 plt.ylabel('Unmagnified fluxes (cgs)')
-plt.savefig('/home/sophienewman/microlensing/my_paper/plots/unmagnified_fluxes.png',dpi=300,bbox_inches='tight')
+plt.savefig('./plots/unmagnified_fluxes.png',dpi=300,bbox_inches='tight')
