@@ -81,9 +81,9 @@ E_values_ev = np.linspace(E_start_ev,E_finish_ev,n_int)
 total_flux = []
 integrand_to_plot = []
 
-f = open('xmm_for_6Rg.txt','w')  
+f = open('./data/accretion_outputs/xmm_for_6Rg.txt','w')  
 f.close()
-file = open('xmm_for_6Rg.txt','a+') #opens file in append and read mode
+file = open('./data/accretion_outputs/xmm_for_6Rg.txt','a+') #opens file in append and read mode
 file.write('R_outer,R_inner,Total_flux')
 
 """for each small radii range in the energy band"""
