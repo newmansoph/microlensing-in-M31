@@ -58,16 +58,7 @@ cov = np.array([[var_M,cov_vM],[cov_vM,var_v]])  # 2x2 covariance matrix
 sample = np.random.multivariate_normal(mu,cov,n_lenses)     
 mass = sample[:,0]
 v = sample[:,1]
-
-
 v = v.tolist()
-
-#plt.figure()
-#plt.scatter(mass,v,alpha=0.1)
-#plt.xlabel('Mass/$M_{\odot}$')
-#plt.ylabel('Velocity (km/s)')
-#plt.savefig('/home/sln/summer_2023/plots/wd_dist_check.png',dpi=300,bbox_inches='tight')
-
 
 
 ###using density profile of WDs as seen in 
@@ -284,14 +275,8 @@ dec_arcsec = []
 for i in src_pos:
     ra_arcsec.append( i.ra.arcsec )
     dec_arcsec.append( i.dec.arcsec )
-    
-#for i in np.arange(546666-164):
-#    ra_arcsec.append( random.uniform(min(ra_arcsec),max(ra_arcsec)) )
-#    dec_arcsec.append( random.uniform(min(dec_arcsec),max(dec_arcsec)) )
-    
    
 #plt.scatter(ra_arcsec,dec_arcsec,s=2,color='blue')
-#
 #plt.xlabel('ra (arcsecs)')
 #plt.ylabel('dec (arcsecs)')
 #plt.title('Chandra X-Ray sources')
@@ -314,9 +299,6 @@ def find_nearest(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
     return [array[idx],idx]
-
-einstein_angle = []
-speed = []
 
 with open('outputs1.txt', 'a+') as file:
 
@@ -347,9 +329,6 @@ with open('outputs1.txt', 'a+') as file:
         v_p = v_t / (4.74*1000*d_kpc)
         v_p_x = (v_t / (4.74*1000*d_kpc))*np.cos(theta_v) 
         
-        #print('v_p_x:',v_p_x)
-        #speed.append(v_p_x)
-        
         #variation of lens positions with time: 
         y = []                                            
         x0 = random.uniform(37500,39500)
@@ -358,8 +337,6 @@ with open('outputs1.txt', 'a+') as file:
         lens_ra = x0 + v_p_x*dt #arcsec
         
         m = v_y / v_x
-
-        #print('v_y:',v_y,'v_x:',v_x,'m:', m)
         
         y_c = 148500
         x_c = 38500
@@ -383,10 +360,6 @@ with open('outputs1.txt', 'a+') as file:
         
         theta_E = ( mass[idx]/(10**(11.09)) )**0.5 * (d_kpc*m31*10**(-6)/d_LS)**(-0.5)#arcsec
         delta_t = theta_E/v_p #years
-        
-        #einstein_angle.append(theta_E)
-           
-        #plt.scatter(lens_ra[-1],lens_dec[-1],s=2,color='red')
         
         if (lens_ra[0] < closest_src_ra < lens_ra[-1] or lens_ra[-1] < closest_src_ra < lens_ra[0]) and (lens_dec[0] < closest_src_dec < lens_dec[-1] or lens_dec[-1] < closest_src_dec < lens_dec[0]) :  #then proceed 
             
@@ -420,8 +393,3 @@ with open('outputs1.txt', 'a+') as file:
                      
             print(n_lines,prob_lensing,theta_E)
 
-#plt.savefig('/home/sln/summer_2023/plots/srcpositions.png',dpi=300,bbox_inches='tight')
-#plt.close()
-
-#print('min and max angle:',min(einstein_angle),max(einstein_angle))
-#print('speed:',min(speed),max(speed))
