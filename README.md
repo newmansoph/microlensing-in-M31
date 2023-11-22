@@ -1,4 +1,7 @@
 # microlensing-towards-M31
+<p align="center">
+  <img width="100%" src="https://github.com/newmansoph/microlensing-towards-M31/assets/149398266/5be2c7fa-c3a5-47e1-b25f-59284f010a2b" alt="Your Image">
+</p>
 
 ![microlensing_banner](https://github.com/newmansoph/microlensing-towards-M31/assets/149398266/5be2c7fa-c3a5-47e1-b25f-59284f010a2b)
 
