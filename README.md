@@ -7,6 +7,8 @@ A repository containing the code and data required to recreate the results in th
 
 For full details of the code and data used, refer to the explanations within the paper.
 
+If you use this code in your work, cite Newman & Middleton (2024). 
+
 # Within the code folder:
 - sim_wd.py simulates the paths of white dwarfs drawn from a 2D mass-velocity distribution as described within the paper and outputs the magnifications, crossing times and impact parameters for the simulated microlensing events 
 - paczynski.py uses the outputs of sim_wd.py to create the Paczynski curves for each event
